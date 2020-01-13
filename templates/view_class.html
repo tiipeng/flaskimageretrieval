@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Texture Classification</title>
+	  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+</head>
+<body>
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<div class="container well" style="padding-top: 5%;">
+	<center><h1 class="center">Images</h1></center>
+	<button onclick="window.history.back();" class="btn btn-default" style="background: white;">Go Back</button>
+	<div class="row">
+		{%for image in result %}
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title=""
+                   data-image="{{image}}"
+                   data-target="#image-gallery">
+                    <img class="img-thumbnail" src="{{image}}" />
+                </a>
+            </div>
+	{%endfor%}
+	</div>
+</div>
+</body>
+</html>

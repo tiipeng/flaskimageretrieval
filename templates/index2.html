@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Texture Classification</title>
+	  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+
+
+</head>
+<body>
+
+	<h1><span>Texture Classification</span></h1>
+
+	<form method=POST enctype=multipart/form-data action="{{ url_for('upload') }}">
+  <div id =c style="margin-top:35px; ">
+    <p><h3><span style = "color:black">Uploaded image predictions: </span></h3>
+    <p><span> Design ID </span> <a href="{{ url_for('view' ,class_name=s1) }}" style="color:maroon;cursor: pointer;">{{s1}}</a> &nbsp; &nbsp; &nbsp; <span> Probability</span>  <span style="color:red">{{s2}}%</span></p>
+    <p><span> Design ID </span> <a href="{{ url_for('view' ,class_name=s3) }}" style="color:maroon;cursor: pointer;">{{s3}}</a> &nbsp; &nbsp; &nbsp; <span> Probability</span>  <span style="color:red">{{s4}}%</span></p>
+    <p><span> Design ID </span> <a href="{{ url_for('view' ,class_name=s5) }}" style="color:maroon;cursor: pointer;">{{s5}}</a> &nbsp; &nbsp; &nbsp; <span> Probability</span>  <span style="color:red">{{s6}}%</span></p>
+    <p><span> Design ID </span> <a href="{{ url_for('view' ,class_name=s7) }}" style="color:maroon;cursor: pointer;">{{s7}}</a> &nbsp; &nbsp; &nbsp; <span> Probability</span>  <span style="color:red">{{s8}}%</span></p>
+    <p><span> Design ID </span> <a href="{{ url_for('view' ,class_name=s9) }}" style="color:maroon;cursor: pointer;">{{s9}}</a> &nbsp; &nbsp; &nbsp; <span> Probability</span>  <span style="color:red">{{s10}}%</span></p>
+     
+    </p></div>
+
+  <div id=d, style ="margin-top:55px;">
+  <h2> <span> Want to Try Again ?? <span></h2>
+    </div>
+    <div style ="margin-top:15px;">
+      <p><h4><span style="color:black"> Upload your image below </span></h4></p>
+    </div>
+  <div id = a , style="margin-top:25px;">
+			<input type=file name = photo accept="image/*" onchange="loadFile(event)">
+			<center> <img id="output" align = middle STYLE="TOP:160px; LEFT:87px; WIDTH:325px; HEIGHT:325px"/> </center>
+      <script>
+        var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        };
+     </script>
+		</div>
+
+    <div id = b , style="margin-top:20px;">
+			<input type="submit">
+		</div>
+</form>
+</body>
+</html>
