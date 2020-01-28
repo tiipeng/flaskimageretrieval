@@ -1,31 +1,9 @@
 from flask import Flask, render_template, request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
-import numpy as np
-from werkzeug import secure_filename
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.optim import lr_scheduler
-import torchvision
-from torchvision import datasets, models, transforms
-import matplotlib.pyplot as plt
-import numpy as np
-import time
-import os
-import copy
-import seaborn as sn
-import pandas as pd
-import matplotlib.pyplot as plt
+import logging
 from PIL import Image
 from torch.autograd import Variable
 import operator
-# import imageio
-
-# for regular expressions, saves time dealing with string data
-import re
-# system level operations (like loading files)
-import sys
-# for reading operating system data
 import os
 
 # tell our app where our saved model is
@@ -36,11 +14,13 @@ app = Flask(__name__)
 # global vars for easy reuseability
 global model, graph
 
-class_names = ['2084', '40219', '40220', '40223', '40231', '40236', '40243', '40244', '40254',
-               '40261', '40282', '40283', '40300', '40626', '50072', '50092', '50096',
-               '80040', '80106', '80108', '8108', '8602', '8765', '8834_8835', 'ART 40114', 'BGR3534']
+class_names = ['2084', '40219', '40220', '40223', '40231', '40243',
+               '40244', '40254', '40261', '40282', '40283', '40300',
+               '40626', '50072', '50092', '50096', '80040', '80106',
+               '80108', '8108', '8602', '8765', '8834_8835',
+               'ART 40114', 'BGR3534']
 
-# Make transforms and use data loaders
+# Make transforms and use dataloaders
 
 # We'll use these a lot, so make them variables
 mean_nums = [0.485, 0.456, 0.406]
@@ -148,7 +128,6 @@ def upload():
     return render_template("index2.html", s1=s1, s2=s2, s3=s3, s4=s4, s5=s5, s6=s6, s7=s7, s8=s8, s9=s9, s10=s10)
 
 
-
 @app.route('/view/<int:class_name>')
 def view(class_name):
     folder = "static/IDPICTURES/"+str(class_name)
@@ -161,10 +140,17 @@ def view(class_name):
     return render_template("view_class.html", result=images)
 
 
-if __name__ == "__main__":
-    # decide what port to run the app in
-    port = int(os.environ.get('PORT', 5000))
-    # run the app locally on the givn port
-    app.run(host='0.0.0.0', port=port)
-# optional if we want to run in debugging mode
-# app.run(debug=True)
+@app.errorhandler(500)
+def server_error(e):
+    logging.exception('An error occurred during a request.')
+    return """
+    An internal error occurred: <pre>{}</pre>
+    See logs for full stacktrace.
+    """.format(e), 500
+
+
+if __name__ == '__main__':
+    # This is used when running locally. Gunicorn is used to run the
+    # application on Google App Engine. See entrypoint in app.yaml.
+    app.run(host='127.0.0.1', port=8080, debug=True)
+# [END app]
