@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 import logging
 from PIL import Image
+import torch
+from torchvision import transforms
 from torch.autograd import Variable
 import operator
 import os
